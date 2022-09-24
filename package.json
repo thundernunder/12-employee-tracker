@@ -1,0 +1,26 @@
+{
+  "name": "12-employee-tracker",
+  "version": "1.0.0",
+  "description": "Command-line application for companies to track and update employee information ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thundernunder/12-employee-tracker.git"
+  },
+  "author": "Nathan Underwood",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.6.0",
+    "express": "^4.18.1",
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.23.1"
+  },
+  "bugs": {
+    "url": "https://github.com/thundernunder/12-employee-tracker/issues"
+  },
+  "homepage": "https://github.com/thundernunder/12-employee-tracker#readme"
+}
