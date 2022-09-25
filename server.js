@@ -1,22 +1,28 @@
+require('dotenv').config();
+console.log(process.env);
 const inquirer = require('inquirer');
 const mysql = require('mysql');
-require('dotenv').config();
+const cTable = require('console.table');
 
 const PORT = process.env.PORT || 3001;
-const app = express();
 
 const db = mysql.createConnection(
     {
-      host: process.env.host,
+      host: process.env.DB_HOST,
       // MySQL username,
-      user: process.env.user,
+      user: process.env.DB_USER,
       // MySQL password
-      password: process.env.password,
-      database: 'employeeTracker_db'
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME
     },
-    console.log(`Connected to the employeeTracker_db database.`),
-    employeeTime()
+    console.log(`Connected to the employeeTracker_db database.`)
 );
+
+db.connect((err) => {
+    if (err) throw err;
+    console.log(`Connected`);
+    employeeTime();
+});
 
 employeeTime = () => {
 inquirer.prompt([
@@ -28,30 +34,44 @@ inquirer.prompt([
     }
 ]).then((response) => {
     switch(response.firstQuestion) {
-        case 'view all departments': viewAllDepartments(); break;
+        case 'view all departments': 
+            viewAllDepartments(); 
+            break;
 
-        case 'view all roles': viewAllRoles();
-        break;
+        case 'view all roles': 
+            viewAllRoles();
+            break;
 
-        case 'view all employees': viewAllEmployees(); 
-        break;
+        case 'view all employees': 
+            viewAllEmployees(); 
+            break;
 
-        case 'add a department': addDepartment(); 
-        break;
+        case 'add a department': 
+            addDepartment(); 
+            break;
 
         case 'add a role': 
-        addRole();
-        break;
+            addRole();
+            break;
 
         case 'add an employee':
-        addEmployee();
-        break;
+            addEmployee();
+            break;
 
         case 'update employee role': 
-        updateEmployeeRole();
-        break;
+            updateEmployeeRole();
+            break;
     }});
 }
+
+viewAllDepartments = () => {
+    db.query(`SELECT * FROM department ORDER BY department_id ASC;`, (err, res) => {
+        if (err) throw err;
+        console.table('\n', res, '\n');
+        employeeTime();
+    })
+};
+
 
 
   
