@@ -65,9 +65,9 @@ inquirer.prompt([
 }
 
 viewAllDepartments = () => {
-    db.query(`SELECT * FROM department ORDER BY department_id ASC;`, (err, res) => {
+    db.query(`SELECT * FROM department;`, (err, res) => {
         if (err) throw err;
-        console.table('\n', res, '\n');
+        console.table(res);
         employeeTime();
     })
 };
