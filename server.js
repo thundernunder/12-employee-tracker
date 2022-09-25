@@ -72,6 +72,16 @@ viewAllDepartments = () => {
     })
 };
 
+viewAllRoles = () => {
+    db.query(`SELECT * FROM role.role_id, role.title, role.salary, department.department_name, department.department_id FROM role JOIN department ON role.department_id = department.department_id ORDER BY role.role_id ASC;`, (err, res) => {
+        if(err) throw err;
+        console.table(res);
+        employeeTime();
+    })
+};
+
+
+
 
 
   

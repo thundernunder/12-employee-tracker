@@ -10,13 +10,13 @@ CREATE TABLE department (
 
 );
 
--- CREATE TABLE role (
---    role_id INT AUTO_INCREMENT PRIMARY KEY,
---    title VARCHAR(30),
---    salary DECIMAL,
---    department_id INT,
---    CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(department_id) ON DELETE CASCADE
--- );
+CREATE TABLE role (
+   role_id INT AUTO_INCREMENT PRIMARY KEY,
+   title VARCHAR(30),
+   salary DECIMAL,
+   department_id INT,
+   CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(department_id) ON DELETE CASCADE
+);
 
 -- CREATE TABLE employee (
 --     id INT AUTO_INCREMENT PRIMARY KEY,
