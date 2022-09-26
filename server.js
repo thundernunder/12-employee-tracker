@@ -88,6 +88,26 @@ viewAllEmployees = () => {
     })
 };
 
+addDepartment = () => {
+    inquirer.prompt([
+        {
+        name: 'newDepartment',
+        type: 'input',
+        message: 'What is your new department called?'   
+        }
+    ]).then((response) => {
+        db.query(`INSERT INTO department SET ?`, 
+        {
+            department_name: response.newDepartment,
+        },
+        (err, res) => {
+            if (err) throw err;
+            console.log(`${response.newDepartment} successfully added department!`);
+            employeeTime();
+        })
+    })
+};
+
 
 
 
