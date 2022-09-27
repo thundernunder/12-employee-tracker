@@ -25,6 +25,10 @@
 
 <h2>Video Walkthrough</h2>
 
+
+https://user-images.githubusercontent.com/98553537/192461361-d10c52e5-65b6-4963-bd38-e332569fff55.mp4
+
+
 <h2>Application Repository</h2>
 <p>Please click this link to navigate to deployed application repo: https://github.com/thundernunder/12-employee-tracker</p>
 
