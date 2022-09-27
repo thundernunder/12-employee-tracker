@@ -14,14 +14,16 @@ VALUES
 ('Senior IT Director', 150000, 02),
 ('IT Director', 125000, 02);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee (first_name, last_name, role_id)
 VALUES
-('Nate', 'Underwood', 03, 01), 
-('Les', 'Johnson', 07, 09), 
-('Count', 'Olaf', 01, 06), 
-('Cassian', 'Andor', 02, 11), 
-('Remus', 'Lupin', 04, 01), 
-('Thorin', 'Oakenshield', 02, 11), 
-('Sandor', 'Clegane', 02, 06), 
-('Lyra', 'Silvertongue', 06, 02);
+('Nate', 'Underwood', 03), 
+('Les', 'Johnson', 07), 
+('Count', 'Olaf', 01), 
+('Cassian', 'Andor', 02), 
+('Remus', 'Lupin', 04), 
+('Thorin', 'Oakenshield', 02), 
+('Sandor', 'Clegane', 02), 
+('Lyra', 'Silvertongue', 06);
+
+UPDATE `employeeTracker_db`.`employee` SET `manager_id` = '1' WHERE (`employee_id` > '1');
 

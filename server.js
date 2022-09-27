@@ -207,7 +207,7 @@ updateEmployeeRole = () => {
     db.query(`SELECT * FROM role;`, (err, res) => {
         if (err) throw err;
         let roles = res.map(role => ({name: role.title, value: role.role_id }));
-        connection.query(`SELECT * FROM employee;`, (err, res) => {
+        db.query(`SELECT * FROM employee;`, (err, res) => {
             if (err) throw err;
             let employees = res.map(employee => ({name: employee.first_name + ' ' + employee.last_name, value: employee.employee_id }));
             inquirer.prompt([
