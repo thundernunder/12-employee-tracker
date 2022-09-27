@@ -1,8 +1,7 @@
-require('dotenv').config();
-console.log(process.env);
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 const cTable = require('console.table');
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 
