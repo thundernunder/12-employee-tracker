@@ -16,12 +16,12 @@ VALUES
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-('Nate', 'Underwood', 3, 4), 
-('Les', 'Johnson', 7, 9), 
-('Count', 'Olaf', 1, 6), 
-('Cassian', 'Andor', 2, 11), 
-('Remus', 'Lupin', 4, 1), 
-('Thorin', 'Oakenshield', 2, 11), 
-('Sandor', 'Clegane', 2, 6), 
-('Lyra', 'Silvertongue', 6, 2);
+('Nate', 'Underwood', 03, 01), 
+('Les', 'Johnson', 07, 09), 
+('Count', 'Olaf', 01, 06), 
+('Cassian', 'Andor', 02, 11), 
+('Remus', 'Lupin', 04, 01), 
+('Thorin', 'Oakenshield', 02, 11), 
+('Sandor', 'Clegane', 02, 06), 
+('Lyra', 'Silvertongue', 06, 02);
 

@@ -128,13 +128,13 @@ addEmployee = () => {
                 },
                 {
                     name: 'role',
-                    type: 'rawlist',
+                    type: 'list',
                     message: 'title?',
                     choices: roles
                 },
                 {
                     name: 'manager',
-                    type: 'rawlist',
+                    type: 'list',
                     message: `Who is the new employee's manager?`,
                     choices: employees
                 }
@@ -163,7 +163,7 @@ addEmployee = () => {
     })
 };
 
-updateEmployeeRole = () => {
+addRole = () => {
     db.query(`SELECT * FROM role;`, (err, res) => {
         if (err) throw err;
         let roles = res.map(role => ({name: role.title, value: role.role_id }));
@@ -173,13 +173,13 @@ updateEmployeeRole = () => {
             inquirer.prompt([
                 {
                     name: 'employee',
-                    type: 'rawlist',
+                    type: 'list',
                     message: 'Which employee would you like to update the role for?',
                     choices: employees
                 },
                 {
                     name: 'newRole',
-                    type: 'rawlist',
+                    type: 'list',
                     message: 'What should the employee\'s new role be?',
                     choices: roles
                 },
@@ -196,6 +196,46 @@ updateEmployeeRole = () => {
                 (err, res) => {
                     if (err) throw err;
                     console.log(`\n Successfully updated employee's role in the database! \n`);
+                    employeeTime();
+                })
+            })
+        })
+    })
+};
+
+updateEmployeeRole = () => {
+    db.query(`SELECT * FROM role;`, (err, res) => {
+        if (err) throw err;
+        let roles = res.map(role => ({name: role.title, value: role.role_id }));
+        connection.query(`SELECT * FROM employee;`, (err, res) => {
+            if (err) throw err;
+            let employees = res.map(employee => ({name: employee.first_name + ' ' + employee.last_name, value: employee.employee_id }));
+            inquirer.prompt([
+                {
+                    name: 'employee',
+                    type: 'list',
+                    message: 'Which employee would you like to update the role for?',
+                    choices: employees
+                },
+                {
+                    name: 'newRole',
+                    type: 'list',
+                    message: `What should the employee's new role be?`,
+                    choices: roles
+                },
+            ]).then((response) => {
+                db.query(`UPDATE employee SET ? WHERE ?`, 
+                [
+                    {
+                        role_id: response.newRole,
+                    },
+                    {
+                        employee_id: response.employee,
+                    },
+                ], 
+                (err, res) => {
+                    if (err) throw err;
+                    console.log(`Successfully updated employee's role in the database!`);
                     employeeTime();
                 })
             })
