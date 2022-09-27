@@ -33,32 +33,39 @@ inquirer.prompt([
     }
 ]).then((response) => {
     switch(response.firstQuestion) {
-        case 'view all departments': 
+        case 'View all departments': 
             viewAllDepartments(); 
             break;
 
-        case 'view all roles': 
+        case 'View all roles': 
             viewAllRoles();
             break;
 
-        case 'view all employees': 
+        case 'View all employees': 
             viewAllEmployees(); 
             break;
 
-        case 'add a department': 
+        case 'Add a department': 
             addDepartment(); 
             break;
 
-        case 'add a role': 
+        case 'Add a role': 
             addRole();
             break;
 
-        case 'add an employee':
+        case 'Add an employee':
             addEmployee();
             break;
 
-        case 'update employee role': 
+        case 'Update employee role': 
             updateEmployeeRole();
+            break;
+
+        case 'Exit':
+            db.end();
+            console.log('Exited program successfully.');
+            return;
+        default:
             break;
     }});
 }
@@ -103,6 +110,43 @@ addDepartment = () => {
             if (err) throw err;
             console.log(`${response.newDepartment} successfully added department!`);
             employeeTime();
+        })
+    })
+};
+
+addRole = () => {
+    db.query(`SELECT * FROM department;`, (err, res) => {
+        if (err) throw err;
+        let departments = res.map(department => ({name: department.department_name, value: department.department_id }));
+        inquirer.prompt([
+            {
+            name: 'title',
+            type: 'input',
+            message: 'What is the title of the role you want to add?'   
+            },
+            {
+            name: 'salary',
+            type: 'input',
+            message: 'What is the salary for this new role?'   
+            },
+            {
+            name: 'deptName',
+            type: 'list',
+            message: 'Which department does this new role belong to?',
+            choices: departments
+            },
+        ]).then((response) => {
+            db.query(`INSERT INTO role SET ?`, 
+            {
+                title: response.title,
+                salary: response.salary,
+                department_id: response.deptName,
+            },
+            (err, res) => {
+                if (err) throw err;
+                console.log(`\n ${response.title} successfully added to database! \n`);
+                employeeTime();
+            })
         })
     })
 };
@@ -162,7 +206,7 @@ addEmployee = () => {
     })
 };
 
-addRole = () => {
+updateEmployeeRole = () => {
     db.query(`SELECT * FROM role;`, (err, res) => {
         if (err) throw err;
         let roles = res.map(role => ({name: role.title, value: role.role_id }));
@@ -202,45 +246,7 @@ addRole = () => {
     })
 };
 
-updateEmployeeRole = () => {
-    db.query(`SELECT * FROM role;`, (err, res) => {
-        if (err) throw err;
-        let roles = res.map(role => ({name: role.title, value: role.role_id }));
-        db.query(`SELECT * FROM employee;`, (err, res) => {
-            if (err) throw err;
-            let employees = res.map(employee => ({name: employee.first_name + ' ' + employee.last_name, value: employee.employee_id }));
-            inquirer.prompt([
-                {
-                    name: 'employee',
-                    type: 'list',
-                    message: 'Which employee would you like to update the role for?',
-                    choices: employees
-                },
-                {
-                    name: 'newRole',
-                    type: 'list',
-                    message: `What should the employee's new role be?`,
-                    choices: roles
-                },
-            ]).then((response) => {
-                db.query(`UPDATE employee SET ? WHERE ?`, 
-                [
-                    {
-                        role_id: response.newRole,
-                    },
-                    {
-                        employee_id: response.employee,
-                    },
-                ], 
-                (err, res) => {
-                    if (err) throw err;
-                    console.log(`Successfully updated employee's role in the database!`);
-                    employeeTime();
-                })
-            })
-        })
-    })
-}
+
 
 
 
